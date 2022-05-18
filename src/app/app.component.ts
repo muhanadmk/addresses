@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { GeoApiGouvAddressFeatureCollection, GeoApiGouvAddressResponse, GeoApiGouvAddressService } from '@placeme/ngx-geo-api-gouv-address';
-import { FormControl, FormGroup } from '@angular/forms';
 import * as L from 'leaflet';
-import { LatLng, LatLngLiteral } from "leaflet";
 
 @Component({
   selector: 'app-root',
@@ -17,6 +14,7 @@ export class AppComponent implements OnInit {
   geoAddressFeatureCollections: any[];
   map: L.Map;
   afiche: boolean = false;
+
   smallIcon = new L.Icon({
     iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon.png',
     iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon-2x.png',
@@ -34,12 +32,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onGetLocation(search: string): void {
-    this.getLocation(search);
-  }
-
   onSubmitForm(): void {
-    this.onGetLocation(this.search)
+    this.getLocation(this.search)
   }
 
   getLocation(address: string): GeoApiGouvAddressFeatureCollection[] {
@@ -51,12 +45,10 @@ export class AppComponent implements OnInit {
     return this.geoAddressFeatureCollections;
   }
 
-
-
-  createMap(arrayPosition: number[]): void {
+  createMap(Coordinat: number[]): void {
     let parcThabor = {
-      lng: arrayPosition[0],
-      lat: arrayPosition[1]
+      lng: Coordinat[0],
+      lat: Coordinat[1]
     };
 
     const zommeLevel = 10;
@@ -71,11 +63,11 @@ export class AppComponent implements OnInit {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     })
     mainMayer.addTo(this.map)
-    this.addMarker(arrayPosition)
+    this.addMarker(Coordinat)
   }
 
-  setCoordinat(arrayPosition: number[]) {
-    this.map.setView([arrayPosition[1], arrayPosition[0]], 10);
+  setCoordinat(Coordinat: number[]) {
+    this.map.setView([Coordinat[1], Coordinat[0]], 10);
   }
 
   setMap(Coordinat: any) {
@@ -87,7 +79,7 @@ export class AppComponent implements OnInit {
       } else {
         this.createMap(Coordinat);
       }
-    },5)
+    },2)
 
   }
   addMarker(coords : number[]) {
