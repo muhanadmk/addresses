@@ -1,47 +1,28 @@
-<header class="d-flex justify-content-center py-3 bg-primary">
-  <ul class="nav nav-pills text-white">
-    <li class="nav-item">
-      <a href="#" class="nav-link active" aria-current="page">Home</a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/features" class="nav-link active">Features</a>
-    </li>
-    <li class="nav-item">
-      <a href="#" class="nav-link active">Pricing</a>
-    </li>
-    <li class="nav-item">
-      <a href="#" class="nav-link active">FAQs</a>
-    </li>
-    <li class="nav-item">
-      <a href="#" class="nav-link active">About</a>
-    </li>
-  </ul>
-</header>
-
+<app-header></app-header>
 <div class="container">
-  <h1>Entrez votre adresse</h1>
+  <app-input-recherche></app-input-recherche>
+  <!-- <h1>Entrez votre adresse</h1>
   <form class="row g-3 mt-2" (ngSubmit)="onSubmitForm()">
     <div class="col-auto">
       <input [(ngModel)]="search" name="search" type="text" class="form-control" placeholder="99 rue du crsone">
     </div>
-
     <div class="col-auto">
       <button type="submit" class="btn btn-primary">Confirm choix</button>
     </div>
-  </form>
+  </form> -->
+  <!-- <app-input-recherche [t]="firstName"></app-input-recherche> -->
 
-  <article *ngIf="geoAddressFeatureCollections" class="mt-2">
+  <!-- <article *ngIf="geoAddressFeatureCollections" class="mt-2">
     <h2>
       Select a address:
     </h2>
     <div class="card" *ngFor="let onAdderess of geoAddressFeatureCollections"  (click)="setMap(onAdderess.geometry.coordinates)" >
       {{onAdderess.properties.label}}
     </div>
-  </article>
-
+  </article> -->
 </div>
-
-<div id="map" *ngIf="afiche"></div>
+      
+<router-outlet></router-outlet>
 
 
 
