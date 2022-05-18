@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~leaflet/dist/leaflet.css";
+
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  display: table;
+  width: 100%;
+}
+fromBorderErr {
+  border: 3px solid red;
+}
+
+.footer_parent{
+  display : table-row;
+  height: 20%;
+}
+.map-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+}
+
+.map-border {
+  margin-top: 60px;
+  border: 5px solid orange;
+  height: 60%;
+}
+
+#map {
+  height: 100%;
+}
