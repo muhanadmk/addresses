@@ -1,66 +1,44 @@
-
-  <header class="d-flex justify-content-center py-3 bg-primary">
-    <ul class="nav nav-pills text-white">
-      <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link active">Features</a></li>
-      <li class="nav-item"><a href="#" class="nav-link active">Pricing</a></li>
-      <li class="nav-item"><a href="#" class="nav-link active">FAQs</a></li>
-      <li class="nav-item"><a href="#" class="nav-link active">About</a></li>
-    </ul>
-  </header>
+<header class="d-flex justify-content-center py-3 bg-primary">
+  <ul class="nav nav-pills text-white">
+    <li class="nav-item">
+      <a href="#" class="nav-link active" aria-current="page">Home</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link active">Features</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link active">Pricing</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link active">FAQs</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link active">About</a>
+    </li>
+  </ul>
+</header>
 
 <div class="container">
   <h1>Entrez votre adresse</h1>
-  <form class="row g-3 mt-2" #searchLocal="ngForm" (ngSubmit)="onSubmitForm(searchLocal)">
+  <form class="row g-3 mt-2" (ngSubmit)="onSubmitForm()">
     <div class="col-auto">
-      <input [(ngModel)]="search" name="search" type="text" class="form-control"
-             id="inputPassword2" placeholder="99 rue du crsone">
+      <input [(ngModel)]="search" name="search" type="text" class="form-control" placeholder="99 rue du crsone">
     </div>
+
     <div class="col-auto">
       <button type="submit" class="btn btn-primary">Confirm choix</button>
     </div>
   </form>
-<!--  <div *ngIf="geoAddressFeatureCollections">-->
-<!--    <div class="form-input mt-2 d-flex justify-content-around">-->
-<!--      <label for="form-select">choisir address :</label>-->
-<!--      <select id="form-select" class="form-select" (change)="selectOption($event.target.)"-->
-<!--              [(ngModel)]="maplocal" required>-->
-<!--        <option  *ngFor="let onAdderess of geoAddressFeatureCollections"  [value]="onAdderess['geometry']['coordinates']">-->
-<!--          {{ onAdderess['properties']['label']}}-->
-<!--        </option>-->
-<!--      </select>-->
-<!--        <button type="submit" id="btnSubmit" class="btn btn-primary p-md-4 p-sm-3">-->
-<!--          choisir-->
-<!--        </button>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <form *ngIf="geoAddressFeatureCollections" class="form-inline" (change)="onSubmitFormMap($event)" )="onSubmitFormMap(f)" #f="ngForm">-->
-<!--    <div class="select">-->
-<!--      <select class="form-control col-lg-8" #onAdderess name="adderess" required>-->
-<!--        <option>&#45;&#45;Select&#45;&#45;</option>-->
-<!--        <option [value]="onAdderess"> *ngFor="let onAdderess of geoAddressFeatureCollections" {{onAdderess['geometry']['coordinates'][0]}}</option>-->
-<!--      </select>-->
-<!--      <button type="submit" class="btn btn-primary manage">Submit</button>-->
-<!--    </div>-->
-<!--  </form>-->
-
-<!--  <select [compareWith]="compareFn"  [formControl]="selectedCountriesControl">-->
-<!--    <option *ngFor="let country of countries" [ngValue]="country">-->
-<!--      {{country.name}}-->
-<!--    </option>-->
-<!--  </select>-->
 
   <article *ngIf="geoAddressFeatureCollections">
-    <h2><span>Select a address:</span></h2>
-    <select (change)="selectChangeHandler($event)">
-      <option value="">--selecte--</option>
-      <option  *ngFor="let onAdderess of geoAddressFeatureCollections" value="{{onAdderess['geometry']['coordinates']}}">
-        {{onAdderess['properties']['label']}}
-      </option>
-    </select>
-    <p><span>You selected: </span><b>{{selectADress}}</b></p>
-    <button *ngIf="selectADress" (click)="setMap()">set map </button>
+    <h2>
+      <span>Select a address:</span>
+    </h2>
+
+    <div class="card" *ngFor="let onAdderess of geoAddressFeatureCollections"  (click)="setMap(onAdderess.geometry.coordinates)" >
+     {{onAdderess.properties.label}}
+    </div>
+
   </article>
 </div>
 

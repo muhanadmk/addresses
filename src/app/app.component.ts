@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { GeoApiGouvAddressFeatureCollection, GeoApiGouvAddressResponse, GeoApiGouvAddressService } from '@placeme/ngx-geo-api-gouv-address';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as L from 'leaflet';
-import {LatLng, LatLngLiteral} from "leaflet";
+import { LatLng, LatLngLiteral } from "leaflet";
 
 @Component({
   selector: 'app-root',
@@ -13,28 +13,30 @@ import {LatLng, LatLngLiteral} from "leaflet";
 export class AppComponent implements OnInit {
 
   title = 'Addresses';
-  search!: string;
-  geoAddressFeatureCollections!: any[];
-  private map!: L.Map;
-  arryNumber: number[]= [];
-  selectADress!: string;
+  search: string;
+  geoAddressFeatureCollections: any[];
+  private map: L.Map;
+  arryNumber: number[] = [];
+  selectADress: string;
+
   constructor(
     private geoApiGouvAddressService: GeoApiGouvAddressService) {
   }
 
   ngOnInit(): void {
   }
+
   onGetLocation(search: string): void {
     this.getLocation(search);
   }
 
-  onSubmitForm(form: NgForm): void {
-    this.onGetLocation(form.value.search)
+  onSubmitForm(): void {
+    this.onGetLocation(this.search)
   }
 
   getLocation(address: string): GeoApiGouvAddressFeatureCollection[] {
     this.geoApiGouvAddressService
-      .query({ q: address })
+      .query({q: address})
       .subscribe((geoApiGouvAddressResponse: GeoApiGouvAddressResponse) => {
         this.geoAddressFeatureCollections = geoApiGouvAddressResponse.features;
       });
@@ -43,6 +45,7 @@ export class AppComponent implements OnInit {
 
 
   selectChangeHandler(event: any) {
+    this.arryNumber = []
     this.selectADress = event.target.value;
     const arrayPosition = this.selectADress.split(',')
     for (let i = 0; i < arrayPosition.length; i++) {
@@ -57,7 +60,7 @@ export class AppComponent implements OnInit {
       lat: arrayPosition[1]
     };
 
-    const zommeLevel = 19;
+    const zommeLevel = 10;
 
     this.map = L.map('map', {
       center: [parcThabor.lat, parcThabor.lng],
@@ -72,22 +75,23 @@ export class AppComponent implements OnInit {
     mainMayer.addTo(this.map)
   }
 
-  setCoordinat (arrayPosition: number[]){
-    this.map.setView([arrayPosition[0], arrayPosition[1]],19);
+  setCoordinat(arrayPosition: number[]) {
+    this.map.setView([arrayPosition[1], arrayPosition[0]], 10);
   }
 
-  setMap() {
+  setMap(value: any) {
+    console.log(value);
+    this.arryNumber = []
+    this.selectADress = value;
+    const arrayPosition = this.selectADress
+    for (let i = 0; i < arrayPosition.length; i++) {
+      const element = arrayPosition[i];
+      this.arryNumber.push(+element)
+    }
     if (this.arryNumber != undefined) {
-      console.log('arry gode')
       if (this.map != undefined || this.map != null) {
-        console.log('map init deja')
-        //setTimeout(() => {
-          // this.map.off();
-          // this.map.remove();
-            this.setCoordinat(this.arryNumber)
-          //this.createMap(this.arryNumber);
-       // }, 500);
-      }else{
+        this.setCoordinat(this.arryNumber)
+      } else {
         console.log('map cree')
         this.createMap(this.arryNumber);
       }
