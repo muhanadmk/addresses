@@ -15,9 +15,17 @@ export class AppComponent implements OnInit {
   title = 'Addresses';
   search: string;
   geoAddressFeatureCollections: any[];
-  private map: L.Map;
-  arryNumber: number[] = [];
-  selectADress: string;
+  map: L.Map;
+  afiche: boolean = false;
+  smallIcon = new L.Icon({
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon.png',
+    iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon-2x.png',
+    iconSize:    [25, 41],
+    iconAnchor:  [12, 41],
+    popupAnchor: [1, -34],
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    shadowSize:  [41, 41]
+  });
 
   constructor(
     private geoApiGouvAddressService: GeoApiGouvAddressService) {
@@ -44,15 +52,6 @@ export class AppComponent implements OnInit {
   }
 
 
-  selectChangeHandler(event: any) {
-    this.arryNumber = []
-    this.selectADress = event.target.value;
-    const arrayPosition = this.selectADress.split(',')
-    for (let i = 0; i < arrayPosition.length; i++) {
-      const element = arrayPosition[i];
-      this.arryNumber.push(+element)
-    }
-  }
 
   createMap(arrayPosition: number[]): void {
     let parcThabor = {
@@ -71,31 +70,28 @@ export class AppComponent implements OnInit {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     })
-    //LatLng LatLngLiteral
     mainMayer.addTo(this.map)
+    this.addMarker(arrayPosition)
   }
 
   setCoordinat(arrayPosition: number[]) {
     this.map.setView([arrayPosition[1], arrayPosition[0]], 10);
   }
 
-  setMap(value: any) {
-    console.log(value);
-    this.arryNumber = []
-    this.selectADress = value;
-    const arrayPosition = this.selectADress
-    for (let i = 0; i < arrayPosition.length; i++) {
-      const element = arrayPosition[i];
-      this.arryNumber.push(+element)
-    }
-    if (this.arryNumber != undefined) {
+  setMap(Coordinat: any) {
+    this.afiche = true;
+    setTimeout(()=>{
       if (this.map != undefined || this.map != null) {
-        this.setCoordinat(this.arryNumber)
+        this.setCoordinat(Coordinat);
+        this.addMarker(Coordinat)
       } else {
-        console.log('map cree')
-        this.createMap(this.arryNumber);
+        this.createMap(Coordinat);
       }
-    }
-  }
+    },5)
 
+  }
+  addMarker(coords : number[]) {
+    const marker = L.marker([coords[1], coords[0]], { icon: this.smallIcon });
+    marker.addTo(this.map);
+  }
 }

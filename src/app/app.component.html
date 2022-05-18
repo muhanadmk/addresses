@@ -4,7 +4,7 @@
       <a href="#" class="nav-link active" aria-current="page">Home</a>
     </li>
     <li class="nav-item">
-      <a href="#" class="nav-link active">Features</a>
+      <a routerLink="/features" class="nav-link active">Features</a>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link active">Pricing</a>
@@ -30,23 +30,18 @@
     </div>
   </form>
 
-  <article *ngIf="geoAddressFeatureCollections">
+  <article *ngIf="geoAddressFeatureCollections" class="mt-2">
     <h2>
-      <span>Select a address:</span>
+      Select a address:
     </h2>
-
     <div class="card" *ngFor="let onAdderess of geoAddressFeatureCollections"  (click)="setMap(onAdderess.geometry.coordinates)" >
-     {{onAdderess.properties.label}}
+      {{onAdderess.properties.label}}
     </div>
-
   </article>
+
 </div>
 
-<div class="map-wrapper" id="mapLayer">
-  <div class="map-border">
-    <div id="map">
-    </div>
-  </div>
-</div>
+<div id="map" *ngIf="afiche"></div>
+
 
 

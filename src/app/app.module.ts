@@ -17,7 +17,7 @@ import {FormsModule} from "@angular/forms";
     CommonModule,
     GeoApiGouvAddressModule.forRoot(),
     FormsModule,
-],
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
