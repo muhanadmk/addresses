@@ -9,12 +9,9 @@ body {
   display: table;
   width: 100%;
 }
-fromBorderErr {
-  border: 3px solid red;
-}
 
 .footer_parent{
-  display : table-row;
+  /* display : table-row; */
   height: 20%;
 }
 
@@ -29,10 +26,9 @@ fromBorderErr {
 }
 
 .landing-block {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .landing-links {
@@ -41,4 +37,5 @@ fromBorderErr {
 }
 img {
   width: 400px;
+  margin: 0 auto;
 }

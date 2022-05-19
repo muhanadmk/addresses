@@ -14,6 +14,7 @@ import { ResultatsAddressComponent } from './resultats-address/resultats-address
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { FeaturesComponent } from './features/features.component';
 import { FromComponent } from './from/from.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FromComponent } from './from/from.component';
     LandingPageComponent,
     FeaturesComponent,
     FromComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
