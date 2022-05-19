@@ -20,7 +20,7 @@ export class FromComponent implements OnInit {
       civilite: new FormControl(''),
       date_de_naissance: new FormControl(''),
       email: new FormControl(''),
-      address: new FormControl({
+      address: new FormGroup({
         numeroRue: new FormControl(''),
         nomRue: new FormControl(''),
         cp: new FormControl(''),
