@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 import {GeoApiGouvAddressModule} from "@placeme/ngx-geo-api-gouv-address";
-import {FormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { InputRechercheComponent } from './input-recherche/input-recherche.component';
@@ -13,6 +13,7 @@ import { MapComponent } from './map/map.component';
 import { ResultatsAddressComponent } from './resultats-address/resultats-address.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { FeaturesComponent } from './features/features.component';
+import { FromComponent } from './from/from.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FeaturesComponent } from './features/features.component';
     ResultatsAddressComponent,
     LandingPageComponent,
     FeaturesComponent,
+    FromComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,8 @@ import { FeaturesComponent } from './features/features.component';
     CommonModule,
     GeoApiGouvAddressModule.forRoot(),
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
