@@ -1,11 +1,12 @@
-<article class="mt-2">
-  <h2>Select a address:</h2>
+<div class="container">
+  <article class="mt-2">
+    <h2>Select a address:</h2>
 
-  <div class="card" *ngFor="let onAdderess of geoAddressFeatureCollections" (click)="setMap(onAdderess.geometry.coordinates)">
-    {{ onAdderess.properties.label }}
-    {{ onAdderess.geometry.coordinates }}
-  </div>
-</article>
-<!-- <app-map  [Coordinat]="onAdderess" *ngFor="let onAdderess of geoAddressFeatureCollections"></app-map> -->
+    <div class="card" *ngFor="let onAdderess of geoAddressFeatureCollections" (click)="setMap(onAdderess.geometry.coordinates)">
+      {{ onAdderess.properties.label }}
+    </div>
+  </article>
 
-<!-- <app-map [Coordinat]="geoAddressFeatureCollections"></app-map> -->
+  <app-map #mapComponent></app-map>
+</div>
+

@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MapComponent } from './map/map.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { InputRechercheComponent } from './input-recherche/input-recherche.component';
+import { FeaturesComponent } from './features/features.component';
+
 const routes: Routes = [
-  {path: 'map/:Coordinat', component: MapComponent }
+  {path: 'features', component: FeaturesComponent },
+  {path: 'search', component: InputRechercheComponent },
+  {path: '', component: LandingPageComponent },
+
 ];
 @NgModule({
   imports: [

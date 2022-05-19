@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {AfterViewInit, Component, Input } from '@angular/core';
 import * as L from 'leaflet';
 
 @Component({
@@ -7,30 +6,45 @@ import * as L from 'leaflet';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements AfterViewInit {
+  smallIcon = new L.Icon({
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon.png',
+    iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon-2x.png',
+    iconSize:    [25, 41],
+    iconAnchor:  [12, 41],
+    popupAnchor: [1, -34],
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    shadowSize:  [41, 41]
+  });
   map: L.Map;
   afiche: boolean = false;
-  @Input() Coordinat:any;
-  arryNumber: any = [];
-  constructor(private route: ActivatedRoute) { }
+  @Input() coordinates: string;
+  i: number = 0;
 
-  ngOnInit(): void {
-    const Coordinat = this.route.snapshot.params['Coordinat'];
-    if (Coordinat != undefined) { 
-
-      const arrayPosition = Coordinat.split(',')
-      for (let i = 0; i < arrayPosition.length; i++) {
-        const element = arrayPosition[i];
-        if (this.arryNumber.length > 1) {
-          this.arryNumber = [];
-        }
-        this.arryNumber.push(+element)
-      }
-      console.log(this.arryNumber);
-      
-      this.setMap(this.arryNumber);
-    }
+  constructor() {
   }
+
+  ngAfterViewInit(): void {
+    }
+
+  // afichMap(){
+  //   console.log('apl +++');
+  //   setTimeout(()=>{
+  //     console.log(this.route.snapshot.params['cor']);
+  //   },5000)
+  //   if (Coordinat != undefined) {
+  //     const arrayPosition = Coordinat.split(',')
+  //     for (let i = 0; i < arrayPosition.length; i++) {
+  //       const element = arrayPosition[i];
+  //       if (this.arryNumber.length > 2) {
+  //         this.arryNumber = [];
+  //       }
+  //       this.arryNumber.push(+element)
+  //     }
+  //     console.log(this.arryNumber);
+  //     this.setMap(this.arryNumber);
+  //   }
+  // }
   createMap(Coordinat: number[]): void {
     let parcThabor = {
       lng: Coordinat[0],
@@ -49,26 +63,28 @@ export class MapComponent implements OnInit {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     })
     mainMayer.addTo(this.map)
-    //this.addMarker(Coordinat)
+    this.addMarker(Coordinat)
   }
 
   setCoordinat(Coordinat: number[]) {
-    this.map.setView([Coordinat[1], Coordinat[0]], 10);
+    this.map.flyTo([Coordinat[1], Coordinat[0]], 10);
   }
 
-  setMap(Coordinat: any) {
+  setMap(Coordinat: number[]) {
+    console.log(Coordinat)
     this.afiche = true;
-    setTimeout(()=>{
+    setTimeout(() => {
       if (this.map != undefined || this.map != null) {
         this.setCoordinat(Coordinat);
-        //this.addMarker(Coordinat)
+        this.addMarker(Coordinat)
       } else {
         this.createMap(Coordinat);
       }
-    },2)
+    }, 5)
   }
-  // addMarker(coords : number[]) {
-  //   const marker = L.marker([coords[1], coords[0]], { icon: this.smallIcon });
-  //   marker.addTo(this.map);
-  // }
+
+  addMarker(coords : number[]) {
+    const marker = L.marker([coords[1], coords[0]], { icon: this.smallIcon });
+    marker.addTo(this.map);
+  }
 }

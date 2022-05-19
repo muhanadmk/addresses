@@ -1,4 +1,5 @@
-<h1>Entrez votre adresse</h1>
+<h1 class="mt-5 d-flex justify-content-center">Entrez votre adresse</h1>
+<div class="d-flex justify-content-center">
 <form class="row g-3 mt-2" (ngSubmit)="onSubmitForm()">
   <div class="col-auto">
     <input [(ngModel)]="search" name="search" type="text" class="form-control" placeholder="99 rue du crsone">
@@ -7,5 +8,7 @@
     <button type="submit" class="btn btn-primary">Confirm choix</button>
   </div>
 </form>
-<!-- <app-resultats-address *ngFor="let onAdderess of geoAddressFeatureCollections" [onAdderess]="onAdderess"></app-resultats-address> -->
-<app-resultats-address [geoAddressFeatureCollections]="geoAddressFeatureCollections"></app-resultats-address>
+</div>
+<h3 class="mt-5 d-flex justify-content-center" routerLink=""><span class="btn btn-primary">routerner vers l'accueil</span> </h3>
+
+<app-resultats-address *ngIf="geoAddressFeatureCollections" [geoAddressFeatureCollections]="geoAddressFeatureCollections"></app-resultats-address>
