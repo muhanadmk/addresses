@@ -28,4 +28,7 @@ export class InputRechercheComponent implements OnInit {
       });
     return this.geoAddressFeatureCollections;
   }
+  vidderInput(): void {
+    this.search = '';
+  }
 }
