@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-from',
@@ -8,27 +10,51 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class FromComponent implements OnInit {
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
   }
 
-  user = new FormGroup({
-      nom: new FormControl(''),
-      prenom: new FormControl(''),
-      civilite: new FormControl(''),
-      date_de_naissance: new FormControl(''),
-      email: new FormControl(''),
-      address: new FormGroup({
-        numeroRue: new FormControl(''),
-        nomRue: new FormControl(''),
-        cp: new FormControl(''),
-        ville: new FormControl('')
+  user = this.fb.group({
+      nom: ['', Validators.required],
+      prenom: [''],
+      civilite: [''],
+      date_de_naissance: [''],
+      email: [''],
+      address: this.fb.group({
+        numeroRue: [''],
+        nomRue: [''],
+        cp: [''],
+        ville: ['']
       }),
+      newsInputs: this.fb.array([
+        this.fb.control('')
+      ])
     }
-  )
+  );
 
+  updateUser(): void {
+    this.user.patchValue({
+      nom: 'Almokdad',
+      prenom: 'muhanad',
+      civilite: 'Homme',
+      email: 'mouhand@gmail.com',
+      date_de_naissance: '02/01/1993',
+      address: {
+        numeroRue: '99',
+        nomRue: 'crosne',
+        cp: '54000',
+        ville: 'Nancy'
+      }
+    })
+  }
+  get newsInputs(){
+    return this.user.get('newsInputs') as FormArray;
+  }
+  addNewsInputs(){
+    this.newsInputs.push(this.fb.control(''))
+  }
   onSubmit() {
     console.log(this.user.value);
   }
