@@ -15,5 +15,4 @@
     <td class="btn btn-secondary text-dark" (click)="modifierUser(user)" >modifier user</td>
   </tbody>
 </table>
-<app-from   #formComp></app-from>
-<!--*ngIf="isUserModif"-->
+<app-from *ngIf="isUserModif" #formComp></app-from>
