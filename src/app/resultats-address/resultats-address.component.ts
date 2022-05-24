@@ -13,7 +13,6 @@ export class ResultatsAddressComponent implements OnInit {
   aficheMap: boolean = false;
   coordinates: string;
   @Input() geoAddressFeatureCollections: any;
-  //onAdderess: any;
   constructor(private router: Router) { }
   ngOnInit(): void {
   }

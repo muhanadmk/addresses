@@ -15,6 +15,9 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { FeaturesComponent } from './features/features.component';
 import { FromComponent } from './from/from.component';
 import { FooterComponent } from './footer/footer.component';
+import { AbooneesComponent } from './aboonees/aboonees.component';
+import { OnAbooneeComponent } from './on-aboonee/on-aboonee.component';
+import { Page404Component } from './page404/page404.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { FooterComponent } from './footer/footer.component';
     FeaturesComponent,
     FromComponent,
     FooterComponent,
+    AbooneesComponent,
+    OnAbooneeComponent,
+    Page404Component,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +42,7 @@ import { FooterComponent } from './footer/footer.component';
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

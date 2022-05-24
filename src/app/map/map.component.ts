@@ -27,24 +27,6 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     }
 
-  // afichMap(){
-  //   console.log('apl +++');
-  //   setTimeout(()=>{
-  //     console.log(this.route.snapshot.params['cor']);
-  //   },5000)
-  //   if (Coordinat != undefined) {
-  //     const arrayPosition = Coordinat.split(',')
-  //     for (let i = 0; i < arrayPosition.length; i++) {
-  //       const element = arrayPosition[i];
-  //       if (this.arryNumber.length > 2) {
-  //         this.arryNumber = [];
-  //       }
-  //       this.arryNumber.push(+element)
-  //     }
-  //     console.log(this.arryNumber);
-  //     this.setMap(this.arryNumber);
-  //   }
-  // }
   createMap(Coordinat: number[]): void {
     let parcThabor = {
       lng: Coordinat[0],

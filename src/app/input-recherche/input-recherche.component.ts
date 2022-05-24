@@ -14,8 +14,10 @@ export class InputRechercheComponent implements OnInit {
   constructor(
     private geoApiGouvAddressService: GeoApiGouvAddressService) {
   }
+
   ngOnInit(): void {
   }
+
   onSubmitForm(): void {
     this.getLocation(this.search)
   }
@@ -28,7 +30,8 @@ export class InputRechercheComponent implements OnInit {
       });
     return this.geoAddressFeatureCollections;
   }
-  vidderInput(): void {
+
+  viderInput(): void {
     this.search = '';
   }
 }

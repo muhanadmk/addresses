@@ -1,0 +1,19 @@
+<table class="container table" *ngIf="users$ | async as user">
+  <thead>
+  <tr>
+    <th scope="col">id</th>
+    <th scope="col">nom</th>
+    <th scope="col">prenom</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let user of users$ | async">
+  <tr>
+    <th scope="row">{{user.iduser}}</th>
+    <td (click)="onAboonee(user.iduser)">{{user.nom}}</td>
+    <td>{{user.prenom}}</td>
+    <td class="btn btn-secondary text-dark" (click)="deleteUser(user.iduser)" >delete user</td>
+    <td class="btn btn-secondary text-dark" (click)="modifierUser(user)" >modifier user</td>
+  </tbody>
+</table>
+<app-from   #formComp></app-from>
+<!--*ngIf="isUserModif"-->

@@ -14,8 +14,8 @@
             <input type="text" class="form-control" id="prenom"  formControlName="prenom" name="prenom" placeholder="muhanad" required>
           </div>
           <div class="form-input">
-            <label for="civilite">civilité :</label>
-            <select class="form-select" id="civilite"  formControlName="civilite" name="civilite" required>
+            <label for="sex">civilité :</label>
+            <select class="form-select" id="sex"  formControlName="sex" name="sex" required>
               <option value="Homme">Homme</option>
               <option value="femme">femme</option>
             </select>
@@ -61,8 +61,12 @@
             </div>
           </div>
         <div class="d-flex justify-content-center mt-5 mb-5">
-          <button [disabled]="!user.valid" type="submit" id="btnSubmit" class="btn bg-primary text-light p-md-4 p-sm-3">valider</button>
-          <button class="btn btn-secondary" type="button" (click)="updateUser()">Update user</button>
+          <button [disabled]="!user.valid" *ngIf="!isUserModif" type="submit" id="btnSubmit" class="btn bg-primary text-light p-md-4 p-sm-3">valider</button>
+          <button [disabled]="!user.valid" *ngIf="isUserModif" type="submit" id="btnSubmit" class="btn bg-primary text-light p-md-4 p-sm-3">modifier</button>
+
+          <!--          <button class="btn btn-secondary" type="button" (click)="updateUser()">Update user</button>-->
+<!--          <button class="btn btn-secondary" type="button" (click)="getUsers()">get Users</button>-->
+
         </div>
       </form>
     </div>
