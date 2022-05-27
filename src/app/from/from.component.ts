@@ -4,7 +4,7 @@ import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../user.service';
-import {User} from '../models/user'
+import { User } from '../../user';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -38,6 +38,9 @@ export class FromComponent implements OnInit {
           cp: [''],
           ville: ['']
         }),
+        newsInputs: this.fb.array([
+          this.fb.control('')
+        ])
       }
     );
   }
@@ -45,7 +48,6 @@ export class FromComponent implements OnInit {
   updateUser(user: User): void {
     this.isUserModif = true;
     this.user.patchValue({
-      id: user.iduser,
       nom: user.nom,
       prenom: user.prenom,
       sex: user.sex,
@@ -69,24 +71,23 @@ export class FromComponent implements OnInit {
   }
 
   onSubmit() {
+
     const userForm = this.user.value;
+    delete userForm.newsInputs;
     const add = userForm.address.numeroRue + '$' + userForm.address.nomRue + '$' + userForm.address.cp + '$'
       + userForm.address.ville;
     delete userForm.address;
     userForm.address = add;
-
-   // setTimeout(() => {
-      let btnSubmitModif = document.getElementById('btnSubmitModif');
-      if (typeof (btnSubmitModif) != 'undefined' && btnSubmitModif != null) {
-        console.log(userForm);
+    console.log(userForm)
+    setTimeout(() => {
+      if (this.isUserModif) {
         this.userService.modifierUser(userForm);
+        this.router.navigateByUrl(`abonnees`);
         this.isUserModif = false;
-        //this.router.navigateByUrl(`abonnees`);
-      } else {
-        this.userService.addUser(userForm).subscribe((value: any) => console.log(value))
-        //this.router.navigateByUrl(`abonnees`);
       }
-    //},50)
+      this.userService.addUser(userForm).subscribe((value: any) => console.log(value))
+      this.router.navigateByUrl(`abonnees`);
+    }, 50)
   }
 
 }
