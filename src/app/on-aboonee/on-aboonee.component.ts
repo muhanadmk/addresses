@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../../user';
+import {User} from '../models/user'
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 
@@ -12,8 +12,13 @@ import { UserService } from '../user.service';
 export class OnAbooneeComponent implements OnInit {
   user$: Observable<User>;
   user: User;
-  constructor(private  route: ActivatedRoute,
-              private userService: UserService) { }
+
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService
+  ) {
+  }
+
   ngOnInit(): void {
     const iduser = +this.route.snapshot.params['id'];
     console.log('id from url : ' + iduser)

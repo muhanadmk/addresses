@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../../user';
+import {User} from '../models/user'
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
@@ -14,8 +14,11 @@ import { FromComponent } from '../from/from.component';
 })
 export class AbooneesComponent implements OnInit {
   users$: Observable<User[]>;
-  @ViewChild("formComp") fromComponent: FromComponent;
+  // statusCode: number;
   isUserModif: boolean = false;
+  abonnees: boolean = true;
+  @ViewChild("formComp") fromComponent: FromComponent;
+
 
   constructor(private http: HttpClient, private userService: UserService,
               private router: Router
@@ -31,15 +34,26 @@ export class AbooneesComponent implements OnInit {
   }
 
   deleteUser(iduser: number) {
-    console.log(iduser)
-    console.log(this.userService.deleteUser(iduser))
-    this.userService.deleteUser(iduser);
+    //console.log(iduser)
+    // console.log(this.userService.deleteUser(iduser))
+
+    this.userService.deleteUser(iduser).subscribe(res => {
+      if (res.status == 200) {
+        this.users$.pipe(
+
+        )
+      } else {
+
+      }
+
+    });
   }
 
   modifierUser(user: User) {
+    this.abonnees = false;
     this.isUserModif = true;
     setTimeout(() => {
       this.fromComponent.updateUser(user);
-    }, 5)
+    }, 2)
   }
 }

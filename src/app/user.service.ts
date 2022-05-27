@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../user';
+import {User} from './models/user'
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
 
@@ -16,20 +16,21 @@ export class UserService {
   }
 
   addUser(user: User): Observable<User> {
-    return this.http.post<User>('http://localhost:3000/api/user', user)
+    return this.http.post<User>('http://localhost:3000/api/users', user)
   }
 
   getUser(idUser: number): Observable<User> {
-    return this.http.get<User>(`http://localhost:3000/api/user/${idUser}`)
+    return this.http.get<User>(`http://localhost:3000/api/users/${idUser}`)
   }
 
-  deleteUser(iduser: number): Observable<User> {
-    return this.http.delete<User>(`http://localhost:3000/api/user/${iduser}`)
+  deleteUser(iduser: number) {
+    return this.http.delete(`http://localhost:3000/api/users/${iduser}`, {observe: 'response'});
   }
 
   modifierUser(user: User) {
-    return this.http.put<User>(`http://localhost:3000/api/user//${user.iduser}`,
-      user);
+    console.log(user.iduser)
+    // return this.http.put<User>(`http://localhost:3000/api/users/${user.iduser}`,
+    //   user);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

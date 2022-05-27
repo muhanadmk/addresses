@@ -1,8 +1,6 @@
-import { Address } from './app/address';
+import { Address } from './address';
 
 export class User {
-  constructor() {
-  }
   iduser: number;
   nom: string;
   prenom: string;
