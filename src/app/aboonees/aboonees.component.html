@@ -9,11 +9,10 @@
   <tbody *ngFor="let user of users$ | async">
   <tr>
     <th scope="row">{{user.iduser}}</th>
-    <td (click)="onAboonee(user.iduser)">{{user.nom}}</td>
+    <td class="text-dark btn btn-primary" (click)="onAboonee(user.iduser)">{{user.nom}}</td>
     <td>{{user.prenom}}</td>
-    <td class="btn btn-secondary text-dark" (click)="deleteUser(user.iduser)" >delete user</td>
-    <td class="btn btn-secondary text-dark" (click)="modifierUser(user)" >modifier user</td>
+    <td class="text-dark btn btn-secondary text-dark" (click)="deleteUser(user.iduser)" >delete user</td>
+    <td class="btn btn-secondary  text-dark" (click)="modifierUser(user.iduser)" >modifier user</td>
   </tbody>
 </table>
-<app-from   #formComp></app-from>
-<!--*ngIf="isUserModif"-->
+

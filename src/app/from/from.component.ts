@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../user.service';
-import { User } from '../../user';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { User } from '../models/user';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-from',
@@ -16,14 +14,16 @@ import { Router } from '@angular/router';
 export class FromComponent implements OnInit {
   isUserModif: boolean;
   user: any;
+  userBd: User;
+  iduserRoute: number;
 
   constructor(private fb: FormBuilder,
               private http: HttpClient, private userService: UserService,
-              private router: Router
+              private router: Router,
+              private route: ActivatedRoute,
   ) {
   }
 
-  //users$ :Observable<User[]>;
 
   ngOnInit(): void {
     this.user = this.fb.group({
@@ -38,11 +38,21 @@ export class FromComponent implements OnInit {
           cp: [''],
           ville: ['']
         }),
-        newsInputs: this.fb.array([
-          this.fb.control('')
-        ])
       }
     );
+
+    this.iduserRoute = +this.route.snapshot.params['id'];
+    if (this.iduserRoute) {
+      this.userService.getUser(this.iduserRoute).subscribe(
+        (user: User) => {
+          this.userBd = user;
+        }
+      )
+      setTimeout(() => {
+        this.updateUser(this.userBd);
+      }, 20)
+    }
+
   }
 
   updateUser(user: User): void {
@@ -62,32 +72,30 @@ export class FromComponent implements OnInit {
     })
   }
 
-  get newsInputs() {
-    return this.user.get('newsInputs') as FormArray;
-  }
-
-  addNewsInputs() {
-    this.newsInputs.push(this.fb.control(''))
-  }
 
   onSubmit() {
-
     const userForm = this.user.value;
     delete userForm.newsInputs;
     const add = userForm.address.numeroRue + '$' + userForm.address.nomRue + '$' + userForm.address.cp + '$'
       + userForm.address.ville;
     delete userForm.address;
     userForm.address = add;
-    console.log(userForm)
-    setTimeout(() => {
-      if (this.isUserModif) {
-        this.userService.modifierUser(userForm);
-        this.router.navigateByUrl(`abonnees`);
-        this.isUserModif = false;
-      }
-      this.userService.addUser(userForm).subscribe((value: any) => console.log(value))
-      this.router.navigateByUrl(`abonnees`);
-    }, 50)
+    const btnModif = document.getElementById('btnSubmitModif');
+    if (btnModif) {
+      this.iduserRoute = +this.route.snapshot.params['id'];
+      userForm.iduser = this.iduserRoute;
+      this.userService.modifierUser(userForm).subscribe(res => {
+        if (res.status === 200) {
+          console.log('modifier ok')
+        } else {
+          console.log('err cante modifier user');
+        }
+      });
+      this.isUserModif = false;
+    } else {
+      this.userService.addUser(userForm).subscribe();
+    }
+    this.router.navigateByUrl(`abonnees`);
   }
 
 }

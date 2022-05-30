@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import {User} from '../models/user'
+import { User } from '../models/user'
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
@@ -14,10 +14,8 @@ import { FromComponent } from '../from/from.component';
 })
 export class AbooneesComponent implements OnInit {
   users$: Observable<User[]>;
-  // statusCode: number;
   isUserModif: boolean = false;
   abonnees: boolean = true;
-  @ViewChild("formComp") fromComponent: FromComponent;
 
 
   constructor(private http: HttpClient, private userService: UserService,
@@ -34,26 +32,16 @@ export class AbooneesComponent implements OnInit {
   }
 
   deleteUser(iduser: number) {
-    //console.log(iduser)
-    // console.log(this.userService.deleteUser(iduser))
-
     this.userService.deleteUser(iduser).subscribe(res => {
-      if (res.status == 200) {
-        this.users$.pipe(
-
-        )
+      if (res.status == 200 && res.body === 'user is deleted !!!') {
+        this.users$ = this.userService.getAllUsers();
       } else {
-
+        console.log('err cante delete user');
       }
-
     });
   }
 
-  modifierUser(user: User) {
-    this.abonnees = false;
-    this.isUserModif = true;
-    setTimeout(() => {
-      this.fromComponent.updateUser(user);
-    }, 2)
+  modifierUser(iduser: number) {
+    this.router.navigateByUrl(`newsletter/${iduser}`);
   }
 }

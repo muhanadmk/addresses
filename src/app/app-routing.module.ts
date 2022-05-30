@@ -9,6 +9,7 @@ import { OnAbooneeComponent } from './on-aboonee/on-aboonee.component';
 import { Page404Component } from './page404/page404.component';
 
 const routes: Routes = [
+  {path: 'newsletter/:id', component: FromComponent},
   {path: 'newsletter', component: FromComponent},
   {path: 'features', component: FeaturesComponent},
   {path: 'search', component: InputRechercheComponent},

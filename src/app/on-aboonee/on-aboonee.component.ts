@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import {User} from '../models/user'
+import { User } from '../models/user'
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
+
 
 @Component({
   selector: 'app-on-aboonee',
@@ -11,7 +12,6 @@ import { UserService } from '../user.service';
 })
 export class OnAbooneeComponent implements OnInit {
   user$: Observable<User>;
-  user: User;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,8 +21,7 @@ export class OnAbooneeComponent implements OnInit {
 
   ngOnInit(): void {
     const iduser = +this.route.snapshot.params['id'];
-    console.log('id from url : ' + iduser)
     this.user$ = this.userService.getUser(iduser);
   }
-
 }
+

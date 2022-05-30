@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {User} from './models/user'
+import { User } from './models/user'
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
 
@@ -28,9 +28,8 @@ export class UserService {
   }
 
   modifierUser(user: User) {
-    console.log(user.iduser)
-    // return this.http.put<User>(`http://localhost:3000/api/users/${user.iduser}`,
-    //   user);
+    return this.http.put<User>(`http://localhost:3000/api/users/${user.iduser}`,
+      user, {observe: 'response'});
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

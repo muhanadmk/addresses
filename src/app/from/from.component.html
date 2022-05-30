@@ -1,5 +1,5 @@
 <main class="text-dark mt-lg-5 mt-sm-4">
-  <h1 class="d-flex justify-content-center hedaing">newsletter</h1>
+  <h1 class="d-flex justify-content-center" *ngIf="isUserModif">newsletter</h1>
   <div class="container">
     <div class="row d-flex justify-content-center">
       <form [formGroup]="user" (ngSubmit)="onSubmit()" class="col-lg-6 col-sm-12">
